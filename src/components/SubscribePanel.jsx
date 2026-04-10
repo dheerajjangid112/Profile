@@ -4,6 +4,7 @@ import { FiCheck, FiMail, FiRefreshCw, FiSend } from 'react-icons/fi'
 export default function SubscribePanel({ username }) {
   const [formData, setFormData] = useState({ name: '', email: '' })
   const [errors, setErrors] = useState({})
+  const [serverError, setServerError] = useState('')
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
 
@@ -25,6 +26,7 @@ export default function SubscribePanel({ username }) {
   const handleChange = (e) => {
     const { name, value } = e.target
     setFormData((prev) => ({ ...prev, [name]: value }))
+    if (serverError) setServerError('')
     if (errors[name]) {
       setErrors((prev) => ({ ...prev, [name]: '' }))
     }
@@ -44,11 +46,33 @@ export default function SubscribePanel({ username }) {
     }
 
     setLoading(true)
-    setTimeout(() => {
-      localStorage.setItem('subscription', JSON.stringify(formData))
-      setSubmitted(true)
-      setLoading(false)
-    }, 600)
+    fetch('/api/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: formData.name,
+        email: formData.email,
+        username,
+        pageUrl: window.location.href,
+        company: '',
+      }),
+    })
+      .then(async (r) => {
+        const data = await r.json().catch(() => ({}))
+        if (!r.ok || !data?.ok) {
+          throw new Error(data?.error || 'Subscribe failed')
+        }
+
+        localStorage.setItem('subscription', JSON.stringify(formData))
+        setSubmitted(true)
+      })
+      .catch((err) => {
+        console.error(err)
+        setServerError(err?.message || 'Subscription failed')
+      })
+      .finally(() => {
+        setLoading(false)
+      })
   }
 
   const handleReset = () => {
@@ -109,6 +133,18 @@ export default function SubscribePanel({ username }) {
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-4">
+              {/* Honeypot field (anti-bot). Keep empty. */}
+              <input
+                type="text"
+                name="company"
+                tabIndex={-1}
+                autoComplete="off"
+                value=""
+                onChange={() => {}}
+                className="hidden"
+                aria-hidden="true"
+              />
+
               <div className="grid gap-4 sm:grid-cols-2">
                 <div>
                   <input
@@ -143,13 +179,19 @@ export default function SubscribePanel({ username }) {
                 </div>
               </div>
 
+              {serverError && (
+                <p className="rounded-2xl border border-red-300/30 bg-red-500/10 px-4 py-3 text-sm text-red-100">
+                  {serverError}
+                </p>
+              )}
+
               <button
                 type="submit"
                 disabled={loading}
                 className="inline-flex h-[56px] w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-emerald-200 to-cyan-200 px-4 text-sm font-extrabold uppercase tracking-[0.22em] text-[#062019] transition-all hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-60"
               >
                 <FiSend size={16} />
-                {loading ? 'Loading...' : 'Subscribe'}
+                {loading ? 'Sending...' : 'Subscribe'}
               </button>
 
               <p className="text-center text-xs text-white/40">

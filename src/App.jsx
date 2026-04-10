@@ -5,6 +5,7 @@ import SocialIcons from './components/SocialBar'
 import Links from './components/LinksPanel'
 import SubscribeSection from './components/SubscribePanel'
 import EditModal from './components/EditModalPanel'
+import defaultAvatar from '../photo/Image.jpeg'
 
 const DEFAULT_LINKS = [
   {
@@ -12,37 +13,38 @@ const DEFAULT_LINKS = [
     title: 'Spotify',
     subtitle: 'User · Dheeraj',
     icon: 'spotify',
-    url: 'https://open.spotify.com',
+    url: 'https://open.spotify.com/user/316ruiov57uzkjsqusviwyj5amwi?nd=1&dlsi=892f9ef8cd2d4b20',
   },
   {
     id: 2,
     title: 'Snapchat',
     subtitle: 'Quick updates and stories',
     icon: 'snapchat',
-    url: 'https://snapchat.com',
+    url: 'https://www.snapchat.com/@dheeraj_591',
   },
   {
     id: 3,
     title: 'LinkedIn',
     subtitle: 'Projects, work, and highlights',
     icon: 'linkedin',
-    url: 'https://linkedin.com',
+    url: 'https://www.linkedin.com/in/dheeraj-jangid-03362319b/',
   },
   {
     id: 4,
     title: 'Instagram',
     subtitle: 'Photos, reels, and behind the scenes',
     icon: 'instagram',
-    url: 'https://instagram.com',
+    url: 'https://www.instagram.com/dheeraj.325/',
   },
 ]
 
 const DEFAULT_PROFILE = {
-  username: 'dheeraj.325',
-  avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop',
-  instagram: 'https://instagram.com/dheeraj325',
-  snapchat: 'https://snapchat.com',
-  linkedin: 'https://linkedin.com',
+  username: 'dheeraj jangid',
+  avatar: defaultAvatar,
+  instagram: 'https://www.instagram.com/dheeraj.325/',
+  snapchat: 'https://www.snapchat.com/@dheeraj_591',
+  linkedin: 'https://www.linkedin.com/in/dheeraj-jangid-03362319b/',
+  spotify: 'https://open.spotify.com/user/316ruiov57uzkjsqusviwyj5amwi?nd=1&dlsi=892f9ef8cd2d4b20',
 }
 
 export default function App() {
@@ -81,6 +83,7 @@ export default function App() {
       instagram,
       snapchat,
       linkedin,
+      spotify,
     }
 
     setUsername(formData.username)
