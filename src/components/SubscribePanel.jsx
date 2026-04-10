@@ -195,7 +195,7 @@ export default function SubscribePanel({ username }) {
               </button>
 
               <p className="text-center text-xs text-white/40">
-                A confirmation is saved locally so you can test the flow without a backend.
+                A confirmation is saved.
               </p>
             </form>
           </>
