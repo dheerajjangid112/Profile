@@ -34,14 +34,14 @@ const DEFAULT_LINKS = [
     title: 'Instagram',
     subtitle: 'Photos, reels, and behind the scenes',
     icon: 'instagram',
-    url: 'https://www.instagram.com/dheeraj.325/',
+    url: 'https://www.instagram.com/dheeraj_jangid.325/',
   },
 ]
 
 const DEFAULT_PROFILE = {
   username: 'dheeraj jangid',
   avatar: defaultAvatar,
-  instagram: 'https://www.instagram.com/dheeraj.325/',
+  instagram: 'https://www.instagram.com/dheeraj_jangid.325/',
   snapchat: 'https://www.snapchat.com/@dheeraj_591',
   linkedin: 'https://www.linkedin.com/in/dheeraj-jangid-03362319b/',
   spotify: 'https://open.spotify.com/user/316ruiov57uzkjsqusviwyj5amwi?nd=1&dlsi=892f9ef8cd2d4b20',
